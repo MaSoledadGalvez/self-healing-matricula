@@ -7,6 +7,18 @@
 // en round-robin y refrescamos la lista cada pocos segundos, así las
 // réplicas nuevas reciben tráfico enseguida.
 import { promises as dns } from "node:dns";
+import client from "prom-client";
+import { register } from "./observability";
+
+// Latencia vista por QUIEN LLAMA (incluye red). Necesaria para detectar latencia
+// de red (tc netem): el servicio lento no la ve en sus propias métricas.
+const upstreamDuration = new client.Histogram({
+  name: "upstream_request_duration_seconds",
+  help: "Duración de las llamadas a otros servicios, medida por el que llama",
+  labelNames: ["target", "outcome"],
+  buckets: [0.01, 0.05, 0.1, 0.25, 0.5, 1, 2, 5],
+  registers: [register],
+});
 
 const DNS_TTL_MS = 2000;
 const cache = new Map<string, { ips: string[]; expires: number; next: number }>();
@@ -57,6 +69,7 @@ export async function callService(
   let lastError: UpstreamError | undefined;
 
   for (let attempt = 0; attempt <= retries; attempt++) {
+    const end = upstreamDuration.startTimer({ target: host });
     try {
       const ip = await pickAddress(host);
       const res = await fetch(`http://${ip}:${port}${path}`, {
@@ -66,6 +79,7 @@ export async function callService(
         signal: AbortSignal.timeout(timeoutMs),
       });
       const text = await res.text();
+      end({ outcome: `${Math.floor(res.status / 100)}xx` });
       let data: any = text;
       try {
         data = text ? JSON.parse(text) : null;
@@ -80,6 +94,7 @@ export async function callService(
       }
     } catch (err: any) {
       const isTimeout = err?.name === "TimeoutError" || err?.name === "AbortError";
+      end({ outcome: isTimeout ? "timeout" : "error" });
       lastError = new UpstreamError(
         `${host}${path}: ${isTimeout ? "timeout" : err?.message ?? "error"}`,
         isTimeout ? "timeout" : "unavailable"

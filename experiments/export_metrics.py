@@ -34,17 +34,28 @@ SEL = '{name=~"' + RE + '"}'
 CPU_RATE = by_service(f"rate(container_cpu_usage_seconds_total{SEL}[30s])")
 CPU_LIMIT = by_service(f"container_spec_cpu_quota{SEL} / container_spec_cpu_period{SEL}")
 RAM = by_service(f"container_memory_working_set_bytes{SEL}")
+CPU_RATE_CTR = by_service(f"sum by (name) (rate(container_cpu_usage_seconds_total{SEL}[30s]))")
+CPU_LIMIT_CTR = by_service(f"(sum by (name) (container_spec_cpu_quota{SEL}) / sum by (name) (container_spec_cpu_period{SEL}))")
 
 # Columna del CSV -> consulta PromQL (cada una devuelve una serie por servicio).
 QUERIES = {
     # CPU del contenedor en % de su límite (suma de réplicas / suma de límites).
     "cpu_pct": f"100 * sum by (service) ({CPU_RATE}) / sum by (service) ({CPU_LIMIT})",
+    # CPU de la réplica MÁS cargada: si una sola réplica está trabada (2b),
+    # el promedio la esconde después de escalar; el máximo no.
+    "cpu_max_pct": f"100 * max by (service) ({CPU_RATE_CTR} / {CPU_LIMIT_CTR})",
     "ram_mb": f"sum by (service) ({RAM}) / 1024 / 1024",
     # Respaldo si cAdvisor no funciona en tu PC (solo ve el proceso Node).
     "cpu_proc_pct": '100 * sum by (service) (rate(process_cpu_seconds_total{job="services"}[30s])) '
                     '/ (0.5 * count by (service) (up{job="services"} == 1))',
     "p95_ms": '1000 * histogram_quantile(0.95, sum by (service, le) '
               '(rate(http_request_duration_seconds_bucket{job="services"}[30s])))',
+    # Latencia vista por quien llama (incluye red; detecta tc netem).
+    "client_p95_ms": '1000 * histogram_quantile(0.95, sum by (service, le) (label_replace('
+                     'rate(upstream_request_duration_seconds_bucket{job="services"}[30s]), '
+                     '"service", "$1", "target", "(.*)")))',
+    # Tiempo de respuesta de /health medido desde afuera (blackbox).
+    "probe_ms": '1000 * max by (service) (probe_duration_seconds{job="blackbox"})',
     "req_rate": 'sum by (service) (rate(http_requests_total{job="services"}[30s]))',
     "err_rate": 'sum by (service) (rate(http_requests_total{job="services", status=~"5.."}[30s]))',
     "health": "max by (service) (probe_success)",

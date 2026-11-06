@@ -15,9 +15,12 @@ export interface Service {
   start: (onShutdown?: () => Promise<void>) => void;
 }
 
+// Un registro de métricas por proceso (cada contenedor corre un solo servicio).
+// Se exporta para que shared/http.ts registre ahí la latencia de las llamadas salientes.
+export const register = new client.Registry();
+
 export function createService(opts: ServiceOptions): Service {
   const { name } = opts;
-  const register = new client.Registry();
   register.setDefaultLabels({ service: name });
   client.collectDefaultMetrics({ register }); // CPU, RAM y event loop del proceso
 
