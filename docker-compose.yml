@@ -2,6 +2,12 @@
 # Levantar:  docker compose up --build
 # Escalar:   docker compose up -d --scale courses=2
 # Apagar:    docker compose down        (agrega -v para borrar y recargar la BD)
+#
+# Monitoreo:  Grafana    http://localhost:3000   (admin / admin)
+#             Prometheus http://localhost:9090
+#             cAdvisor   http://localhost:8081
+
+name: self-healing-matricula   # fija el nombre del proyecto (prefijo de los contenedores)
 
 # ---------- Bloques reutilizables ----------
 x-app: &app
@@ -104,5 +110,79 @@ services:
       - enrollment
       - billing
 
+  # =====================================================================
+  # Observabilidad (F3)
+  # =====================================================================
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=30d    # guarda 30 días: es tu dataset
+      - --web.enable-lifecycle
+    volumes:
+      - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - promdata:/prometheus
+    ports:
+      - "9090:9090"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+
+  cadvisor:
+    image: ghcr.io/google/cadvisor:0.55.1
+    privileged: true
+    command:
+      - --docker_only=true
+      - --housekeeping_interval=5s
+      - --disable_metrics=percpu,sched,tcp,udp,disk,diskIO,hugetlb,referenced_memory,cpu_topology,resctrl,advtcp,memory_numa
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - "8081:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+
+  blackbox:
+    image: prom/blackbox-exporter:v0.26.0
+    command:
+      - --config.file=/etc/blackbox/blackbox.yml
+    volumes:
+      - ./observability/blackbox/blackbox.yml:/etc/blackbox/blackbox.yml:ro
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 64M
+
+  grafana:
+    image: grafana/grafana:12.0.0
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/matricula.json
+    volumes:
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafanadata:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+
 volumes:
   pgdata:
+  promdata:
+  grafanadata:

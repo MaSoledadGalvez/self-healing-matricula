@@ -1,0 +1,72 @@
+# Prometheus: lee métricas cada 5 s (el plan pide 2-5 s).
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  # 1) Métricas de la aplicación (prom-client): latencia, errores, tasa de requests,
+  #    CPU y RAM del proceso Node. Se descubre CADA réplica por DNS de Docker,
+  #    así cuando se escala un servicio la réplica nueva aparece sola.
+  - job_name: services
+    honor_labels: true          # respeta la etiqueta "service" que pone cada servicio
+    dns_sd_configs:
+      - names: [gateway, students, courses, enrollment, billing]
+        type: A
+        port: 3000
+        refresh_interval: 5s
+    relabel_configs:
+      - source_labels: [__meta_dns_name]
+        target_label: service
+
+  # 2) cAdvisor: CPU y RAM por CONTENEDOR (incluye procesos como stress-ng,
+  #    que el proceso Node no ve). Clave para el escenario 2b.
+  - job_name: cadvisor
+    static_configs:
+      - targets: ["cadvisor:8080"]
+    metric_relabel_configs:
+      # Solo guardamos los contenedores del proyecto (menos datos, más rápido).
+      - source_labels: [__name__, name]
+        separator: ";"
+        regex: "machine_.*;.*|.*;self-healing-matricula-.*"
+        action: keep
+
+  # 3) Blackbox: disponibilidad vista "desde afuera" (¿responde /health?).
+  #    probe_success = 1 arriba, 0 caído. De aquí sale el downtime.
+  - job_name: blackbox
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets: ["http://gateway:3000/health"]
+        labels: { service: gateway }
+      - targets: ["http://students:3000/health"]
+        labels: { service: students }
+      - targets: ["http://courses:3000/health"]
+        labels: { service: courses }
+      - targets: ["http://enrollment:3000/health"]
+        labels: { service: enrollment }
+      - targets: ["http://billing:3000/health"]
+        labels: { service: billing }
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115
+
+  # 4) Base de datos: ¿acepta conexiones TCP?
+  - job_name: blackbox-postgres
+    metrics_path: /probe
+    params:
+      module: [tcp_connect]
+    static_configs:
+      - targets: ["postgres:5432"]
+        labels: { service: postgres }
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115
