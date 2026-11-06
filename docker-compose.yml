@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "psql -U $${POSTGRES_USER} -d students_db -c 'SELECT 1' || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  students:
+    build: ./services/students
+    environment:
+      SERVICE_NAME: students
+      PORT: 3000
+      DB_HOST: postgres
+      DB_NAME: students_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "3001:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"   # a propósito: quien repara es nuestro healer, no Docker
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/health || exit 1"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+
+volumes:
+  pgdata:
