@@ -109,7 +109,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1.0"          # más CPU que el resto: el cuello de botella debe ser courses, no la puerta
+          cpus: "1.5"          # más CPU que el resto: el cuello de botella debe ser courses, no la puerta
           memory: 256M
     depends_on:
       - students
@@ -136,8 +136,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
-          memory: 256M
+          cpus: "1.5"          # el generador de carga no debe ser el cuello de botella
+          memory: 512M
 
   # =====================================================================
   # Observabilidad (F3)
@@ -165,6 +165,7 @@ services:
     command:
       - --docker_only=true
       - --housekeeping_interval=5s
+      - --allow_dynamic_housekeeping=false   # muestras cada 5 s siempre (si no, a veces se espacian)
       - --disable_metrics=percpu,sched,tcp,udp,disk,diskIO,hugetlb,referenced_memory,cpu_topology,resctrl,advtcp,memory_numa
     volumes:
       - /:/rootfs:ro

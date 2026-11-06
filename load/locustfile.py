@@ -14,7 +14,7 @@ Se ejecuta dentro de Docker (no hay que instalar Locust en Windows):
 """
 import random
 
-from locust import HttpUser, between, task
+from locust import FastHttpUser, HttpUser, between, task
 
 N_STUDENTS = 500
 N_COURSES = 40
@@ -72,8 +72,9 @@ class EstudianteNormal(HttpUser):
             ok_codes(r, 201, 409)
 
 
-class EstudiantePico(HttpUser):
-    """Apertura de matrícula: recargan la oferta casi sin pausa (satura courses)."""
+class EstudiantePico(FastHttpUser):
+    """Apertura de matrícula: recargan la oferta casi sin pausa (satura courses).
+    FastHttpUser es el cliente rápido de Locust: genera mucha más carga con la misma CPU."""
 
     wait_time = between(0.05, 0.2)
 

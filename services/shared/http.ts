@@ -6,7 +6,7 @@
 // conexión, todas las peticiones irían a la misma réplica. Aquí repartimos
 // en round-robin y refrescamos la lista cada pocos segundos, así las
 // réplicas nuevas reciben tráfico enseguida.
-import { promises as dns } from "node:dns";
+import { Resolver } from "node:dns/promises";
 import client from "prom-client";
 import { register } from "./observability";
 
@@ -21,15 +21,30 @@ const upstreamDuration = new client.Histogram({
 });
 
 const DNS_TTL_MS = 2000;
+const DNS_FAIL_TTL_MS = 1000;
 const cache = new Map<string, { ips: string[]; expires: number; next: number }>();
+
+// Resolver asíncrono (c-ares) con timeout corto. NO usamos dns.lookup porque usa
+// un grupo de solo 4 hilos: si un servicio cae y su nombre tarda en resolverse,
+// esos hilos se bloquean y las llamadas a los servicios SANOS también se atrasan
+// (así un fallo en courses hacía parecer lento a students).
+const resolver = new Resolver({ timeout: 500, tries: 1 });
 
 async function pickAddress(host: string): Promise<string> {
   const now = Date.now();
   let entry = cache.get(host);
   if (!entry || entry.expires < now) {
-    const found = await dns.lookup(host, { all: true, family: 4 });
-    const ips = found.map((f) => f.address).sort();
-    entry = { ips, expires: now + DNS_TTL_MS, next: entry?.next ?? 0 };
+    let ips: string[] = [];
+    try {
+      ips = (await resolver.resolve4(host)).sort();
+    } catch {
+      ips = []; // nombre sin réplicas vivas
+    }
+    entry = {
+      ips,
+      expires: now + (ips.length ? DNS_TTL_MS : DNS_FAIL_TTL_MS),
+      next: entry?.next ?? 0,
+    };
     cache.set(host, entry);
   }
   if (entry.ips.length === 0) throw new Error(`sin direcciones para ${host}`);

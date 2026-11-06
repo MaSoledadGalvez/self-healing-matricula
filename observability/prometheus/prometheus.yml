@@ -21,6 +21,7 @@ scrape_configs:
   # 2) cAdvisor: CPU y RAM por CONTENEDOR (incluye procesos como stress-ng,
   #    que el proceso Node no ve). Clave para el escenario 2b.
   - job_name: cadvisor
+    honor_timestamps: false
     static_configs:
       - targets: ["cadvisor:8080"]
     metric_relabel_configs:

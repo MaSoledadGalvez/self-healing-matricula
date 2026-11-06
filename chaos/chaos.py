@@ -47,8 +47,17 @@ def run(cmd: list[str], check: bool = True, quiet: bool = False) -> subprocess.C
     return r
 
 
-def container_name(service: str, index: int = 1) -> str:
-    return f"{PROJECT}-{service}-{index}"
+def container_name(service: str) -> str:
+    """Nombre de la primera réplica VIVA del servicio. No se asume que sea la -1:
+    al escalar y desescalar, Docker Compose puede dejar viva otra (p. ej. la -2)."""
+    r = run(["docker", "ps",
+             "--filter", f"label=com.docker.compose.project={PROJECT}",
+             "--filter", f"label=com.docker.compose.service={service}",
+             "--format", "{{.Names}}"], check=False, quiet=True)
+    names = sorted(r.stdout.split())
+    if not names:
+        sys.exit(f"El servicio {service} no tiene réplicas corriendo. Ejecuta: python chaos/chaos.py reset")
+    return names[0]
 
 
 def ensure_running(container: str) -> None:
