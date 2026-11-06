@@ -1,4 +1,30 @@
+# Sistema de matrícula self-healing
+# Levantar:  docker compose up --build
+# Escalar:   docker compose up -d --scale courses=2
+# Apagar:    docker compose down        (agrega -v para borrar y recargar la BD)
+
+# ---------- Bloques reutilizables ----------
+x-app: &app
+  build: ./services            # una sola imagen; SERVICE_NAME elige qué servicio corre
+  restart: "no"                # a propósito: quien repara es nuestro healer, no Docker
+  healthcheck:
+    test: ["CMD-SHELL", "wget -qO- http://localhost:3000/health || exit 1"]
+    interval: 5s
+    timeout: 2s
+    retries: 3
+  deploy:
+    resources:
+      limits:
+        cpus: "0.5"
+        memory: 256M
+
+x-db-env: &db-env
+  DB_HOST: postgres
+  POSTGRES_USER: ${POSTGRES_USER}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
 services:
+  # ---------- Base de datos: 1 PostgreSQL, una base por servicio ----------
   postgres:
     image: postgres:16-alpine
     environment:
@@ -8,36 +34,75 @@ services:
       - ./db/init:/docker-entrypoint-initdb.d:ro
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "psql -U $${POSTGRES_USER} -d students_db -c 'SELECT 1' || exit 1"]
+      # Por TCP y sobre la última tabla creada: así no queda "sano" a mitad de la carga inicial.
+      test: ["CMD-SHELL", "PGPASSWORD=$${POSTGRES_PASSWORD} psql -h 127.0.0.1 -U $${POSTGRES_USER} -d enrollment_db -c 'SELECT 1 FROM enrollments LIMIT 1' || exit 1"]
       interval: 5s
       timeout: 3s
-      retries: 20
-
-  students:
-    build: ./services/students
-    environment:
-      SERVICE_NAME: students
-      PORT: 3000
-      DB_HOST: postgres
-      DB_NAME: students_db
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "3001:3000"
-    depends_on:
-      postgres:
-        condition: service_healthy
-    restart: "no"   # a propósito: quien repara es nuestro healer, no Docker
+      retries: 30
     deploy:
       resources:
         limits:
-          cpus: "0.5"
-          memory: 256M
-    healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/health || exit 1"]
-      interval: 5s
-      timeout: 2s
-      retries: 3
+          cpus: "1.0"
+          memory: 512M
+
+  # ---------- Microservicios ----------
+  students:
+    <<: *app
+    environment:
+      <<: *db-env
+      SERVICE_NAME: students
+      DB_NAME: students_db
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  courses:
+    <<: *app
+    environment:
+      <<: *db-env
+      SERVICE_NAME: courses
+      DB_NAME: courses_db
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  billing:
+    <<: *app
+    environment:
+      SERVICE_NAME: billing
+      BASE_LATENCY_MS: 50
+      JITTER_MS: 30
+
+  enrollment:
+    <<: *app
+    environment:
+      <<: *db-env
+      SERVICE_NAME: enrollment
+      DB_NAME: enrollment_db
+      UPSTREAM_TIMEOUT_MS: 2000
+      UPSTREAM_RETRIES: 2
+    depends_on:
+      postgres:
+        condition: service_healthy
+      students:
+        condition: service_started
+      courses:
+        condition: service_started
+      billing:
+        condition: service_started
+
+  gateway:
+    <<: *app
+    environment:
+      SERVICE_NAME: gateway
+      UPSTREAM_TIMEOUT_MS: 5000
+    ports:
+      - "8080:3000"            # única puerta de entrada desde tu computadora
+    depends_on:
+      - students
+      - courses
+      - enrollment
+      - billing
 
 volumes:
   pgdata:

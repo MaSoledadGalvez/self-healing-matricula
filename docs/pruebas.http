@@ -1,0 +1,57 @@
+### Pruebas del sistema de matrícula (extensión REST Client de VS Code)
+### Todo pasa por el gateway: http://localhost:8080
+@base = http://localhost:8080
+
+### Estado de los 4 servicios internos
+GET {{base}}/status
+
+### Gateway vivo
+GET {{base}}/health
+
+### ---------- students ----------
+### Login (existe)
+POST {{base}}/login
+Content-Type: application/json
+
+{ "email": "estudiante7@universidad.edu" }
+
+### Login (no existe -> 404)
+POST {{base}}/login
+Content-Type: application/json
+
+{ "email": "noexiste@universidad.edu" }
+
+### Datos de un estudiante
+GET {{base}}/students/7
+
+### ---------- courses ----------
+### Lista de materias
+GET {{base}}/courses
+
+### Paralelos de la materia 3 (mira el "id" de cada paralelo y sus cupos)
+GET {{base}}/courses/3/sections
+
+### ---------- enrollment (matrícula de punta a punta) ----------
+### Matricular al estudiante 7 en el paralelo 7 -> 201
+POST {{base}}/enrollments
+Content-Type: application/json
+
+{ "studentId": 7, "sectionId": 7 }
+
+### Repetir la misma matrícula -> 409 "ya matriculado"
+POST {{base}}/enrollments
+Content-Type: application/json
+
+{ "studentId": 7, "sectionId": 7 }
+
+### Estudiante que no existe -> 404
+POST {{base}}/enrollments
+Content-Type: application/json
+
+{ "studentId": 9999, "sectionId": 7 }
+
+### Matrículas del estudiante 7
+GET {{base}}/enrollments/7
+
+### Cupos después de matricular (enrolled debe haber subido en 1)
+GET {{base}}/courses/3/sections

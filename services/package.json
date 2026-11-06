@@ -1,14 +1,11 @@
 {
-  "name": "students",
+  "name": "matricula-services",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "private": true,
+  "description": "Microservicios del sistema de matrícula (gateway, students, courses, enrollment, billing)",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "build": "tsc"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
@@ -20,7 +17,6 @@
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.6",
     "@types/pg": "^8.23.1",
-    "ts-node": "^10.9.2",
     "typescript": "^7.0.2"
   }
 }
