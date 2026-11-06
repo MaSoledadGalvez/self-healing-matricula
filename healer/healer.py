@@ -4,7 +4,8 @@ Healer: el bucle self-healing  Fallo -> Detección -> Decisión -> Acción -> Re
 Uso (desde la raíz del repo, con docker compose corriendo):
     python healer/healer.py --mode rules     # baseline con reglas fijas (F6)
     python healer/healer.py --mode none      # sin auto-recuperación (referencia)
-    python healer/healer.py --mode rl        # agente Q-learning (F7)
+    python healer/healer.py --mode rl        # detector + agente Q-learning (F7)
+    python healer/healer.py --mode rl --detector zscore   # con el detector de referencia
 
 Cada 5 s: lee Prometheus, decide una acción por servicio, la ejecuta y registra:
     data/healer_trace.csv   una fila por servicio y ciclo (estado + decisión) -> dataset
@@ -168,14 +169,14 @@ class IncidentTracker:
 
 
 # ------------------------------------------------------------------ bucle principal
-def get_strategy(mode: str):
+def get_strategy(mode: str, detector: str = "iforest"):
     if mode == "rules":
         return RulesStrategy()
     if mode == "none":
         return NoHealingStrategy()
     if mode == "rl":
-        from agent import RLStrategy  # se agrega en F7
-        return RLStrategy()
+        from agent import RLStrategy  # F7: detector + agente Q-learning
+        return RLStrategy(detector)
     raise ValueError(mode)
 
 
@@ -183,9 +184,11 @@ def main():
     ap = argparse.ArgumentParser(description="Healer self-healing del sistema de matrícula")
     ap.add_argument("--mode", choices=["rules", "none", "rl"], default="rules")
     ap.add_argument("--interval", type=float, default=5.0, help="segundos entre ciclos")
+    ap.add_argument("--detector", choices=["iforest", "zscore"], default="iforest",
+                    help="detector de anomalías del modo rl")
     args = ap.parse_args()
 
-    strategy = get_strategy(args.mode)
+    strategy = get_strategy(args.mode, args.detector)
     started = time.time()
     tracker = IncidentTracker(args.mode, started)
     tracker.poll_chaos_log()  # marca como vistos los fallos viejos
