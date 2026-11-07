@@ -40,7 +40,7 @@ def run(cmd: list[str], check: bool = True, quiet: bool = False) -> subprocess.C
     """Ejecuta un comando docker desde la raíz del repo."""
     if not quiet:
         print("  $", " ".join(cmd))
-    r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8")
+    r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if check and r.returncode != 0:
         print(r.stdout, r.stderr, sep="\n", file=sys.stderr)
         sys.exit(f"Error ejecutando: {' '.join(cmd)}")

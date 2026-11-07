@@ -1,0 +1,7 @@
+Healer en modo 'rl' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 2b (cpu_stress) en courses
+[21:36:55] gateway:OK(cpu 2% lat 3ms x1)  students:OK(cpu 2% lat 10ms x1)  courses:OK(cpu 72% lat 80ms x1)  enrollment:OK(cpu 3% lat 187ms x1)  billing:OK(cpu 4% lat 98ms x1)
+[21:37:05] courses    RESTART  (iforest -0.024; [arriba, CPU ALTA, tráfico normal, latencia normal, x1, anomalía un rato]) -> restart self-healing-matricula-courses-2
+<<< Incidente 2b en courses: recovered | detección 8.1 s | recovery 28.0 s | downtime 0 s | acciones: 1
+

@@ -1,0 +1,9 @@
+Healer en modo 'rules' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 1 (crash) en courses
+[22:51:36] enrollment RESTART  (latencia 2000 ms > 500 ms) -> restart self-healing-matricula-enrollment-1
+[22:51:41] gateway:OK(cpu 1% lat 3ms x1)  students:OK(cpu 5% lat 10ms x1)  courses:!!(cpu 0% lat 673ms x0)  enrollment:!!(cpu 5% lat 2150ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:51:46] courses    RESTART  (/health falló 2 veces) -> start self-healing-matricula-courses-2
+<<< Incidente 1 en courses: recovered | detección 10.0 s | recovery 30.0 s | downtime 10 s | acciones: 2
+
+[22:52:11] gateway:OK(cpu 3% lat 3ms x1)  students:OK(cpu 5% lat 10ms x1)  courses:OK(cpu 4% lat 10ms x1)  enrollment:OK(cpu 7% lat 39ms x1)  billing:OK(cpu 4% lat 3ms x1)

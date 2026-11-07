@@ -14,7 +14,7 @@ ACTIONS = [DO_NOTHING, RESTART, SCALE]
 
 
 def _run(cmd: list[str]) -> subprocess.CompletedProcess:
-    return subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8")
+    return subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
 
 
 def containers(service: str) -> list[dict]:

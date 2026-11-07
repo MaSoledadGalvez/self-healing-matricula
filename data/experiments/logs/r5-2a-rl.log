@@ -1,0 +1,12 @@
+Healer en modo 'rl' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 2a (traffic_spike) en courses
+[22:57:21] gateway:OK(cpu 37% lat 10ms x1)  students:OK(cpu 4% lat 33ms x1)  courses:OK(cpu 30% lat 94ms x1)  enrollment:OK(cpu 5% lat 48ms x1)  billing:OK(cpu 2% lat 3ms x1)
+[22:57:31] courses    SCALE    (iforest -0.099; [arriba, CPU ALTA, tráfico ALTO, latencia normal, x1, anomalía un rato]) -> scale courses 1 -> 2
+[22:57:51] gateway    SCALE    (cpu_max_pct extremo (z=46); [arriba, CPU ALTA, tráfico ALTO, latencia normal, x1, anomalía persistente]) -> error al escalar: Container self-healing-matricula-billing-1 Running 
+ Container self-healing-matricula-postgres-1 Running 
+ Container self-healing-matricula-students-1 Running 
+ Container self-healing-matricula-course
+[22:57:51] gateway:!!(cpu 94% lat 6ms x1)  students:OK(cpu 4% lat 77ms x1)  courses:OK(cpu 81% lat 59ms x2)  enrollment:OK(cpu 4% lat 50ms x1)  billing:OK(cpu 3% lat 98ms x1)
+<<< Incidente 2a en courses: recovered | detección 8.1 s | recovery 38.1 s | downtime 0 s | acciones: 2
+

@@ -1,0 +1,11 @@
+scenario,strategy,reward,recovery_s,downtime_s,actions,recovered_pct
+crash,reglas,-5.1,19.05,9.05,1,100.0
+crash,RL,-5.1,19.05,9.05,1,100.0
+spike,reglas,-23.5,15,0,1,100.0
+spike,RL,-23.5,15,0,1,100.0
+cpu_stress,reglas,-191.5,175,0,2,0.0
+cpu_stress,RL,-4.83,18.92,3.92,1,100.0
+latency_short,reglas,-5.0,19,4,1,100.0
+latency_short,RL,3.62,17.3,0,0,100.0
+latency_long,reglas,-4.73,18.87,3.87,1,100.0
+latency_long,RL,-11.0,29,4,1,100.0

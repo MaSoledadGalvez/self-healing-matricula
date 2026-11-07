@@ -1,0 +1,23 @@
+Healer en modo 'rl' cada 5 s. Ctrl + C para detener.
+[22:32:19] courses    SCALE    (iforest -0.086; [arriba, CPU ALTA, tráfico ALTO, latencia normal, x1, anomalía persistente]) -> scale courses 1 -> 2
+[22:32:19] gateway:OK(cpu 62% lat 5ms x1)  students:OK(cpu 4% lat 40ms x1)  courses:!!(cpu 93% lat 92ms x1)  enrollment:OK(cpu 6% lat 94ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:32:44] gateway    SCALE    (iforest -0.013; [arriba, CPU ALTA, tráfico ALTO, latencia normal, x1, anomalía persistente]) -> error al escalar: Container self-healing-matricula-billing-1 Running 
+ Container self-healing-matricula-postgres-1 Running 
+ Container self-healing-matricula-students-1 Running 
+ Container self-healing-matricula-course
+[22:32:49] gateway:OK(cpu 70% lat 3ms x1)  students:OK(cpu 2% lat 24ms x1)  courses:!!(cpu 96% lat 42ms x2)  enrollment:OK(cpu 5% lat 55ms x1)  billing:OK(cpu 4% lat 98ms x1)
+[22:33:09] courses    SCALE    (iforest -0.085; [arriba, CPU ALTA, tráfico ALTO, latencia normal, x1, anomalía persistente]) -> scale courses 1 -> 2
+[22:33:14] gateway    SCALE    (iforest -0.014; [arriba, CPU ALTA, tráfico ALTO, latencia normal, x1, anomalía persistente]) -> error al escalar: Container self-healing-matricula-billing-1 Running 
+ Container self-healing-matricula-postgres-1 Running 
+ Container self-healing-matricula-students-1 Running 
+ Container self-healing-matricula-course
+[22:33:19] gateway:OK(cpu 62% lat 2ms x1)  students:OK(cpu 4% lat 42ms x1)  courses:!!(cpu 120% lat 98ms x1)  enrollment:!!(cpu 4% lat 1250ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:33:44] courses    SCALE    (iforest -0.080; [arriba, CPU ALTA, tráfico ALTO, latencia normal, x1, anomalía persistente]) -> scale courses 1 -> 2
+[22:33:49] gateway:OK(cpu 79% lat 2ms x1)  students:OK(cpu 3% lat 42ms x1)  courses:!!(cpu 120% lat 89ms x1)  enrollment:OK(cpu 3% lat 98ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:34:19] gateway:OK(cpu 3% lat 4ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:OK(cpu 5% lat 10ms x2)  enrollment:OK(cpu 6% lat 145ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:34:49] gateway:OK(cpu 2% lat 3ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:OK(cpu 4% lat 10ms x2)  enrollment:OK(cpu 4% lat 50ms x1)  billing:OK(cpu 4% lat 3ms x1)
+[22:35:19] gateway:OK(cpu 3% lat 3ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:OK(cpu 6% lat 10ms x2)  enrollment:OK(cpu 5% lat 65ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:35:49] gateway:OK(cpu 3% lat 3ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:OK(cpu 6% lat 10ms x2)  enrollment:OK(cpu 6% lat 48ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:36:19] gateway:OK(cpu 2% lat 7ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:OK(cpu 6% lat 10ms x2)  enrollment:OK(cpu 7% lat 85ms x1)  billing:OK(cpu 4% lat 98ms x1)
+[22:36:49] gateway:OK(cpu 2% lat 3ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:OK(cpu 6% lat 10ms x2)  enrollment:OK(cpu 4% lat 32ms x1)  billing:OK(cpu 4% lat 98ms x1)
+[22:37:19] gateway:OK(cpu 4% lat 3ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:OK(cpu 5% lat 10ms x2)  enrollment:OK(cpu 8% lat 80ms x1)  billing:OK(cpu 4% lat 98ms x1)

@@ -1,0 +1,9 @@
+Healer en modo 'rules' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 3b (latency_long) en billing
+[21:41:37] gateway:OK(cpu 2% lat 2ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:OK(cpu 7% lat 10ms x1)  enrollment:OK(cpu 4% lat 137ms x1)  billing:!!(cpu 1% lat 98ms x1)
+[21:41:42] enrollment RESTART  (latencia 1250 ms > 500 ms) -> restart self-healing-matricula-enrollment-1
+[21:41:42] billing    RESTART  (latencia 1850 ms > 500 ms) -> restart self-healing-matricula-billing-1
+<<< Incidente 3b en billing: recovered | detección 14.7 s | recovery 29.8 s | downtime 5 s | acciones: 2
+
+[21:42:07] gateway:OK(cpu 3% lat 3ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:OK(cpu 6% lat 11ms x1)  enrollment:OK(cpu 15% lat 98ms x1)  billing:OK(cpu 8% lat 98ms x1)

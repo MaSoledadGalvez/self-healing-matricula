@@ -1,0 +1,10 @@
+Healer en modo 'rules' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 2a (traffic_spike) en courses
+[22:54:51] gateway:OK(cpu 24% lat 3ms x1)  students:OK(cpu 3% lat 36ms x1)  courses:OK(cpu 42% lat 254ms x1)  enrollment:OK(cpu 4% lat 85ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:55:01] enrollment RESTART  (latencia 1200 ms > 500 ms) -> restart self-healing-matricula-enrollment-1
+[22:55:11] courses    SCALE    (CPU 127% > 85%) -> scale courses 1 -> 2
+[22:55:21] gateway:OK(cpu 76% lat 24ms x1)  students:OK(cpu 3% lat 39ms x1)  courses:!!(cpu 88% lat 149ms x1)  enrollment:OK(cpu 12% lat 242ms x1)  billing:OK(cpu 3% lat 2ms x1)
+<<< Incidente 2a en courses: recovered | detección 25.2 s | recovery 60.2 s | downtime 0 s | acciones: 2
+
+[22:55:51] gateway:OK(cpu 76% lat 3ms x1)  students:OK(cpu 2% lat 29ms x1)  courses:OK(cpu 78% lat 45ms x2)  enrollment:OK(cpu 8% lat 44ms x1)  billing:OK(cpu 3% lat 4ms x1)

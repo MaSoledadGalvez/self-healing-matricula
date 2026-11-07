@@ -1,0 +1,7 @@
+Healer en modo 'rl' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 1 (crash) en courses
+[22:07:30] courses    RESTART  (/health caído; [CAÍDO, CPU baja, tráfico normal, latencia normal, x1, anomalía recién]) -> start self-healing-matricula-courses-2
+[22:07:35] gateway:OK(cpu 2% lat 2ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:!!(cpu 1% lat 5000ms x1)  enrollment:!!(cpu 2% lat 812ms x1)  billing:OK(cpu 3% lat 4ms x1)
+<<< Incidente 1 en courses: recovered | detección 7.5 s | recovery 22.5 s | downtime 10 s | acciones: 1
+

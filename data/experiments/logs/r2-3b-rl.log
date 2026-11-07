@@ -1,0 +1,7 @@
+Healer en modo 'rl' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 3b (latency_long) en billing
+[22:04:27] gateway:OK(cpu 3% lat 3ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:OK(cpu 8% lat 10ms x1)  enrollment:!!(cpu 2% lat 1700ms x1)  billing:!!(cpu 5% lat 1875ms x1)
+[22:04:32] billing    RESTART  (iforest -0.020; [arriba, CPU baja, tráfico normal, latencia ALTA, x1, anomalía un rato]) -> restart self-healing-matricula-billing-1
+<<< Incidente 3b en billing: recovered | detección 7.4 s | recovery 27.4 s | downtime 0 s | acciones: 1
+

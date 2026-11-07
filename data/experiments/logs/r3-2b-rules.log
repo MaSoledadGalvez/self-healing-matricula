@@ -1,0 +1,16 @@
+Healer en modo 'rules' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 2b (cpu_stress) en courses
+[22:12:48] gateway:OK(cpu 3% lat 2ms x1)  students:OK(cpu 2% lat 10ms x1)  courses:OK(cpu 3% lat 43ms x1)  enrollment:OK(cpu 4% lat 100ms x1)  billing:OK(cpu 2% lat 98ms x1)
+[22:13:03] courses    SCALE    (CPU 105% > 85%) -> scale courses 1 -> 2
+[22:13:18] gateway:OK(cpu 2% lat 3ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:!!(cpu 89% lat 58ms x2)  enrollment:OK(cpu 3% lat 96ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:13:48] gateway:OK(cpu 2% lat 3ms x1)  students:OK(cpu 3% lat 9ms x1)  courses:OK(cpu 81% lat 42ms x2)  enrollment:OK(cpu 2% lat 46ms x1)  billing:OK(cpu 3% lat 3ms x1)
+[22:14:18] gateway:OK(cpu 3% lat 4ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:OK(cpu 63% lat 69ms x2)  enrollment:OK(cpu 4% lat 137ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:14:48] gateway:OK(cpu 3% lat 2ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:!!(cpu 99% lat 55ms x2)  enrollment:OK(cpu 3% lat 91ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:15:18] gateway:OK(cpu 1% lat 2ms x1)  students:OK(cpu 2% lat 10ms x1)  courses:!!(cpu 106% lat 74ms x2)  enrollment:OK(cpu 4% lat 69ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:15:48] gateway:OK(cpu 1% lat 3ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:!!(cpu 136% lat 55ms x2)  enrollment:OK(cpu 4% lat 145ms x1)  billing:OK(cpu 2% lat 98ms x1)
+[22:16:18] gateway:OK(cpu 2% lat 2ms x1)  students:OK(cpu 2% lat 10ms x1)  courses:!!(cpu 85% lat 74ms x2)  enrollment:OK(cpu 5% lat 171ms x1)  billing:OK(cpu 2% lat 98ms x1)
+[22:16:48] gateway:OK(cpu 2% lat 3ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:!!(cpu 91% lat 70ms x2)  enrollment:OK(cpu 4% lat 74ms x1)  billing:OK(cpu 2% lat 4ms x1)
+[22:17:18] gateway:OK(cpu 1% lat 3ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:!!(cpu 111% lat 74ms x2)  enrollment:OK(cpu 4% lat 85ms x1)  billing:OK(cpu 3% lat 98ms x1)
+<<< Incidente 2b en courses: not_recovered | detección 19.9 s | recovery - s | downtime 0 s | acciones: 1
+

@@ -1,0 +1,8 @@
+Healer en modo 'rules' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 2a (traffic_spike) en courses
+[22:29:51] gateway:OK(cpu 7% lat 2ms x1)  students:OK(cpu 2% lat 30ms x1)  courses:OK(cpu 38% lat 216ms x1)  enrollment:OK(cpu 5% lat 242ms x1)  billing:OK(cpu 4% lat 98ms x1)
+[22:30:21] courses    SCALE    (CPU 102% > 85%) -> scale courses 1 -> 2
+[22:30:21] gateway:OK(cpu 44% lat 3ms x1)  students:OK(cpu 2% lat 10ms x1)  courses:!!(cpu 102% lat 24ms x1)  enrollment:OK(cpu 2% lat 66ms x1)  billing:OK(cpu 2% lat 98ms x1)
+<<< Incidente 2a en courses: recovered | detección 24.7 s | recovery 49.7 s | downtime 0 s | acciones: 1
+

@@ -1,0 +1,2 @@
+# Para analizar resultados y generar gráficas (F8)
+matplotlib>=3.8

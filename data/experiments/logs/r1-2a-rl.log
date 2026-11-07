@@ -1,0 +1,8 @@
+Healer en modo 'rl' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 2a (traffic_spike) en courses
+[21:28:34] gateway:OK(cpu 14% lat 3ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:OK(cpu 22% lat 73ms x1)  enrollment:OK(cpu 6% lat 180ms x1)  billing:OK(cpu 5% lat 98ms x1)
+[21:28:49] courses    SCALE    (iforest -0.031; [arriba, CPU ALTA, tráfico ALTO, latencia normal, x1, anomalía persistente]) -> scale courses 1 -> 2
+[21:29:04] gateway:OK(cpu 52% lat 2ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:OK(cpu 67% lat 41ms x2)  enrollment:OK(cpu 5% lat 79ms x1)  billing:OK(cpu 3% lat 98ms x1)
+<<< Incidente 2a en courses: recovered | detección 7.8 s | recovery 52.9 s | downtime 0 s | acciones: 1
+

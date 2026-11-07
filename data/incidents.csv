@@ -1,0 +1,61 @@
+event_id,mode,scenario,fault,service,expected_action,injected_at,detected_at,first_action,first_action_at,recovered_at,detection_time_s,recovery_time_s,downtime_s,n_actions,actions,status
+00eb8229,rules,1,crash,courses,restart,1793981011.421,1793981016.662,restart,1793981021.686,1793981041.622,5.2,30.2,10,1,+10s restart courses,recovered
+3557d834,rules,2a,traffic_spike,courses,scale,1793981158.756,1793981181.657,scale,1793981186.701,1793981196.678,22.9,37.9,0,1,+28s scale courses,recovered
+0851a3d4,rules,2b,cpu_stress,courses,restart,1793981296.800,1793981336.666,,,1793981341.682,39.9,44.9,0,0,,recovered
+fa15a048,rules,3a,latency_short,billing,do_nothing,1793981451.329,1793981456.672,restart,1793981456.672,1793981471.696,5.3,20.4,5,2,+5s restart billing | +10s restart enrollment,recovered
+0d0c7c12,rules,3b,latency_long,billing,restart,1793981588.084,1793981601.730,restart,1793981601.730,1793981616.714,13.6,28.6,5,2,+14s restart billing | +19s restart enrollment,recovered
+ae193707,rules,2b,cpu_stress,courses,restart,1793983071.466,1793983093.262,scale,1793983098.251,,21.8,,0,1,+27s scale courses,not_recovered
+f08b4150,rl,1,crash,courses,restart,1793985050.029,1793985057.217,restart,1793985057.217,1793985072.176,7.2,22.1,5,1,+7s restart courses,recovered
+2281b117,rl,2a,traffic_spike,courses,scale,1793985188.061,1793985192.186,scale,1793985212.241,1793985227.164,4.1,39.1,0,1,+24s scale courses,recovered
+774d6815,rl,2b,cpu_stress,courses,restart,1793985370.616,1793985377.417,restart,1793985392.182,1793985397.210,6.8,26.6,0,1,+22s restart courses,recovered
+86f557a0,rl,3a,latency_short,billing,do_nothing,1793985495.073,1793985497.250,,,1793985507.208,2.2,12.1,0,0,,recovered
+eb7ec8eb,rl,3b,latency_long,billing,restart,1793985604.532,1793985607.240,restart,1793985617.178,1793985627.190,2.7,22.7,0,1,+13s restart billing,recovered
+58fc11c3,rules,1,crash,courses,restart,1794018111.150,1794018116.096,restart,1794018121.089,1794018131.051,4.9,19.9,15,2,+10s restart courses | +10s restart enrollment,recovered
+9a88aa44,rl,1,crash,courses,restart,1794018290.788,1794018298.424,restart,1794018298.424,1794018318.436,7.6,27.6,5,1,+8s restart courses,recovered
+c3f6d9fd,rules,2a,traffic_spike,courses,scale,1794018385.402,1794018405.461,scale,1794018410.519,1794018420.484,20.1,35.1,0,1,+25s scale courses,recovered
+cb9acc05,rl,2a,traffic_spike,courses,scale,1794018501.195,1794018509.028,scale,1794018529.018,1794018554.048,7.8,52.9,0,1,+28s scale courses,recovered
+8a71a7ef,rules,2b,cpu_stress,courses,restart,1794018627.011,1794018647.021,scale,1794018672.029,,20.0,,0,1,+45s scale courses,not_recovered
+53994478,rl,2b,cpu_stress,courses,restart,1794019002.778,1794019010.847,restart,1794019025.884,1794019030.820,8.1,28.0,0,1,+23s restart courses,recovered
+e6fcbc35,rules,3a,latency_short,billing,do_nothing,1794019097.282,1794019107.076,restart,1794019107.076,1794019127.095,9.8,29.8,0,2,+10s restart billing | +15s restart enrollment,recovered
+ca2250fd,rl,3a,latency_short,billing,do_nothing,1794019194.803,1794019197.383,,,1794019222.398,2.6,27.6,0,0,,recovered
+5f64a4e6,rules,3b,latency_long,billing,restart,1794019287.459,1794019302.200,restart,1794019302.200,1794019317.246,14.7,29.8,5,2,+15s restart enrollment | +15s restart billing,recovered
+d627e496,rl,3b,latency_long,billing,restart,1794019381.749,1794019389.267,restart,1794019399.211,1794019419.272,7.5,37.5,5,1,+17s restart billing,recovered
+534921a4,rules,1,crash,courses,restart,1794019485.878,1794019491.025,restart,1794019497.248,1794019517.218,5.1,31.3,10,2,+5s restart enrollment | +11s restart courses,recovered
+2dfe8080,rl,1,crash,courses,restart,1794019585.227,1794019592.783,restart,1794019592.783,1794019612.758,7.6,27.5,5,1,+8s restart courses,recovered
+58bd90db,rules,2a,traffic_spike,courses,scale,1794019679.541,1794019709.634,scale,1794019724.628,1794019749.613,30.1,70.1,0,1,+45s scale courses,recovered
+e8cf1ea1,rl,2a,traffic_spike,courses,scale,1794019819.893,1794019822.463,scale,1794019842.416,1794019857.398,2.6,37.5,0,1,+23s scale courses,recovered
+cd1c32d6,rules,2b,cpu_stress,courses,restart,1794019930.111,1794019950.245,scale,1794019955.225,,20.1,,0,1,+25s scale courses,not_recovered
+0640f4b6,rl,2b,cpu_stress,courses,restart,1794020285.653,1794020293.233,restart,1794020303.187,1794020308.230,7.6,22.6,0,1,+18s restart courses,recovered
+250da0a6,rules,3a,latency_short,billing,do_nothing,1794020375.093,,,,1794020389.912,,14.8,0,0,,recovered
+55ad15c5,rl,3a,latency_short,billing,do_nothing,1794020457.881,1794020465.371,,,1794020490.399,7.5,32.5,0,0,,recovered
+b6beef96,rules,3b,latency_long,billing,restart,1794020555.746,1794020570.522,restart,1794020570.522,1794020590.435,14.8,34.7,0,2,+15s restart enrollment | +15s restart billing,recovered
+e488054b,rl,3b,latency_long,billing,restart,1794020655.228,1794020662.632,restart,1794020672.616,1794020682.639,7.4,27.4,0,1,+17s restart billing,recovered
+3ff1f0e6,rules,1,crash,courses,restart,1794020749.415,1794020754.482,restart,1794020759.470,1794020779.535,5.1,30.1,10,2,+10s restart courses | +10s restart enrollment,recovered
+93107295,rl,1,crash,courses,restart,1794020843.344,1794020850.860,restart,1794020850.860,1794020865.821,7.5,22.5,10,1,+8s restart courses,recovered
+7d955598,rules,2a,traffic_spike,courses,scale,1794020932.726,1794020962.828,scale,1794020967.843,1794020992.885,30.1,60.2,0,1,+35s scale courses,recovered
+80ff7139,rl,2a,traffic_spike,courses,scale,1794021057.897,1794021060.468,scale,1794021080.448,1794021090.471,2.6,32.6,0,1,+23s scale courses,recovered
+53f234d3,rules,2b,cpu_stress,courses,restart,1794021158.225,1794021178.167,scale,1794021183.109,,19.9,,0,1,+25s scale courses,not_recovered
+ab9155c3,rl,2b,cpu_stress,courses,restart,1794021523.669,1794021530.399,restart,1794021540.499,1794021550.410,6.7,26.7,0,1,+17s restart courses,recovered
+0aa733d4,rules,3a,latency_short,billing,do_nothing,1794021618.249,1794021628.139,restart,1794021628.139,1794021643.096,9.9,24.8,5,1,+10s restart billing,recovered
+3890ace6,rl,3a,latency_short,billing,do_nothing,1794021710.896,1794021718.112,,,1794021738.107,7.2,27.2,0,0,,recovered
+5b0c88d6,rules,3b,latency_long,billing,restart,1794021803.769,1794021808.610,restart,1794021808.610,1794021828.582,4.8,24.8,5,2,+5s restart billing | +10s restart enrollment,recovered
+2cc54aa4,rl,3b,latency_long,billing,restart,1794021893.342,1794021900.670,restart,1794021910.690,1794021925.646,7.3,32.3,0,1,+17s restart billing,recovered
+f7269665,rules,1,crash,courses,restart,1794021992.801,1794022002.746,restart,1794022007.689,1794022027.694,9.9,34.9,10,2,+5s restart enrollment | +15s restart courses,recovered
+a9b805bb,rl,1,crash,courses,restart,1794022092.273,1794022099.560,restart,1794022099.560,1794022114.612,7.3,22.3,5,1,+7s restart courses,recovered
+495d9c7d,rules,2a,traffic_spike,courses,scale,1794022182.129,1794022206.849,scale,1794022221.831,1794022231.863,24.7,49.7,0,1,+40s scale courses,recovered
+812f5f83,rules,2b,cpu_stress,courses,restart,1794022705.076,1794022730.115,scale,1794022735.100,1794022910.123,25.0,205.0,0,1,+30s scale courses,recovered
+3107cc79,rl,2b,cpu_stress,courses,restart,1794022981.105,1794022993.907,restart,1794023003.903,1794023013.921,12.8,32.8,5,1,+23s restart courses,recovered
+bce1afe4,rules,3a,latency_short,billing,do_nothing,1794023080.927,,,,,,,0,0,,no_impact
+8f18210b,rl,3a,latency_short,billing,do_nothing,1794023203.966,1794023206.489,,,1794023231.485,2.5,27.5,0,0,,recovered
+d070506c,rules,3b,latency_long,billing,restart,1794023297.151,1794023317.003,restart,1794023317.003,1794023332.045,19.9,34.9,0,2,+20s restart billing | +25s restart enrollment,recovered
+24e39fcf,rl,3b,latency_long,billing,restart,1794023397.181,1794023404.818,restart,1794023414.847,1794023424.840,7.6,27.7,0,1,+18s restart billing,recovered
+2163b92a,rules,1,crash,courses,restart,1794023491.678,1794023501.691,restart,1794023506.682,1794023521.660,10.0,30.0,10,2,+5s restart enrollment | +15s restart courses,recovered
+abfb6999,rl,1,crash,courses,restart,1794023586.636,1794023594.494,restart,1794023594.494,1794023614.502,7.9,27.9,5,1,+8s restart courses,recovered
+e1adb3bd,rules,2a,traffic_spike,courses,scale,1794023681.354,1794023706.528,scale,1794023711.501,1794023741.506,25.2,60.2,0,2,+20s restart enrollment | +30s scale courses,recovered
+9afa7820,rl,2a,traffic_spike,courses,scale,1794023828.006,1794023836.087,scale,1794023851.055,1794023866.066,8.1,38.1,0,2,+23s scale courses | +43s scale gateway,recovered
+7ea6b473,rules,2b,cpu_stress,courses,restart,1794023933.935,1794023958.929,scale,1794023973.932,,25.0,,5,1,+40s scale courses,not_recovered
+3c8566a4,rl,2b,cpu_stress,courses,restart,1794024298.280,1794024309.983,restart,1794024325.051,1794024339.990,11.7,41.7,5,1,+27s restart courses,recovered
+2be64c08,rules,3a,latency_short,billing,do_nothing,1794024406.961,1794024421.904,restart,1794024421.904,1794024446.886,14.9,39.9,0,2,+15s restart billing | +20s restart enrollment,recovered
+6d8e2a4f,rl,3a,latency_short,billing,do_nothing,1794024514.090,1794024520.960,,,1794024525.938,6.9,11.8,0,0,,recovered
+d1dc7261,rules,3b,latency_long,billing,restart,1794024591.197,1794024601.019,restart,1794024601.019,1794024606.041,9.8,14.8,0,1,+10s restart billing,recovered
+f4a77dd0,rl,3b,latency_long,billing,restart,1794024670.215,1794024672.152,restart,1794024682.114,1794024687.074,1.9,16.9,0,1,+12s restart billing,recovered

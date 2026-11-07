@@ -1,0 +1,7 @@
+Healer en modo 'rl' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 3a (latency_short) en billing
+[22:01:10] gateway:OK(cpu 2% lat 2ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:OK(cpu 3% lat 10ms x1)  enrollment:!!(cpu 4% lat 937ms x1)  billing:!!(cpu 4% lat 962ms x1)
+<<< Incidente 3a en billing: recovered | detección 7.5 s | recovery 32.5 s | downtime 0 s | acciones: 0
+
+[22:01:40] gateway:OK(cpu 4% lat 2ms x1)  students:OK(cpu 5% lat 10ms x1)  courses:OK(cpu 6% lat 10ms x1)  enrollment:OK(cpu 4% lat 89ms x1)  billing:OK(cpu 3% lat 98ms x1)

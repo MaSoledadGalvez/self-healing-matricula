@@ -1,0 +1,13 @@
+Healer en modo 'rules' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 2b (cpu_stress) en courses
+[22:38:35] gateway:OK(cpu 3% lat 4ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:OK(cpu 28% lat 84ms x1)  enrollment:OK(cpu 4% lat 71ms x1)  billing:OK(cpu 2% lat 98ms x1)
+[22:38:55] courses    SCALE    (CPU 91% > 85%) -> scale courses 1 -> 2
+[22:39:05] gateway:OK(cpu 3% lat 3ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:!!(cpu 129% lat 92ms x2)  enrollment:OK(cpu 5% lat 190ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:39:35] gateway:OK(cpu 3% lat 3ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:!!(cpu 93% lat 74ms x2)  enrollment:OK(cpu 3% lat 50ms x1)  billing:OK(cpu 4% lat 98ms x1)
+[22:40:05] gateway:OK(cpu 3% lat 3ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:!!(cpu 121% lat 69ms x2)  enrollment:OK(cpu 5% lat 48ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:40:35] gateway:OK(cpu 2% lat 5ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:!!(cpu 138% lat 48ms x2)  enrollment:OK(cpu 4% lat 149ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:41:05] gateway:OK(cpu 2% lat 3ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:!!(cpu 111% lat 60ms x2)  enrollment:OK(cpu 2% lat 100ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[22:41:35] gateway:OK(cpu 2% lat 4ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:!!(cpu 115% lat 71ms x2)  enrollment:OK(cpu 7% lat 130ms x1)  billing:OK(cpu 4% lat 98ms x1)
+<<< Incidente 2b en courses: recovered | detección 25.0 s | recovery 205.0 s | downtime 0 s | acciones: 1
+

@@ -1,0 +1,16 @@
+Healer en modo 'rules' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 2b (cpu_stress) en courses
+[21:30:37] gateway:OK(cpu 2% lat 2ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:OK(cpu 47% lat 55ms x1)  enrollment:OK(cpu 4% lat 171ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[21:31:07] gateway:OK(cpu 1% lat 3ms x1)  students:OK(cpu 5% lat 10ms x1)  courses:!!(cpu 131% lat 82ms x1)  enrollment:OK(cpu 5% lat 224ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[21:31:12] courses    SCALE    (CPU 87% > 85%) -> scale courses 1 -> 2
+[21:31:37] gateway:OK(cpu 3% lat 3ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:OK(cpu 77% lat 75ms x2)  enrollment:OK(cpu 4% lat 216ms x1)  billing:OK(cpu 4% lat 98ms x1)
+[21:32:07] gateway:OK(cpu 2% lat 4ms x1)  students:OK(cpu 3% lat 10ms x1)  courses:!!(cpu 120% lat 85ms x2)  enrollment:OK(cpu 6% lat 192ms x1)  billing:OK(cpu 2% lat 182ms x1)
+[21:32:37] gateway:OK(cpu 2% lat 2ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:OK(cpu 64% lat 71ms x2)  enrollment:OK(cpu 4% lat 180ms x1)  billing:OK(cpu 3% lat 98ms x1)
+[21:33:07] gateway:OK(cpu 2% lat 2ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:!!(cpu 96% lat 70ms x2)  enrollment:OK(cpu 4% lat 88ms x1)  billing:OK(cpu 2% lat 98ms x1)
+[21:33:37] gateway:OK(cpu 2% lat 3ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:!!(cpu 97% lat 82ms x2)  enrollment:OK(cpu 4% lat 94ms x1)  billing:OK(cpu 2% lat 98ms x1)
+[21:34:07] gateway:OK(cpu 1% lat 3ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:!!(cpu 127% lat 81ms x2)  enrollment:OK(cpu 4% lat 171ms x1)  billing:OK(cpu 5% lat 98ms x1)
+[21:34:37] gateway:OK(cpu 2% lat 2ms x1)  students:OK(cpu 6% lat 10ms x1)  courses:OK(cpu 57% lat 49ms x2)  enrollment:OK(cpu 6% lat 209ms x1)  billing:OK(cpu 2% lat 98ms x1)
+[21:35:07] gateway:OK(cpu 1% lat 3ms x1)  students:OK(cpu 4% lat 10ms x1)  courses:!!(cpu 127% lat 78ms x2)  enrollment:OK(cpu 4% lat 90ms x1)  billing:OK(cpu 4% lat 98ms x1)
+<<< Incidente 2b en courses: not_recovered | detección 20.0 s | recovery - s | downtime 0 s | acciones: 1
+

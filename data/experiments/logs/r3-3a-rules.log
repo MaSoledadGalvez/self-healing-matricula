@@ -1,0 +1,7 @@
+Healer en modo 'rules' cada 5 s. Ctrl + C para detener.
+
+>>> Fallo detectado en chaos_log: escenario 3a (latency_short) en billing
+[22:20:28] billing    RESTART  (latencia 1850 ms > 500 ms) -> restart self-healing-matricula-billing-1
+[22:20:28] gateway:OK(cpu 3% lat 3ms x1)  students:OK(cpu 1% lat 10ms x1)  courses:OK(cpu 6% lat 10ms x1)  enrollment:OK(cpu 5% lat 72ms x1)  billing:!!(cpu 4% lat 1850ms x1)
+<<< Incidente 3a en billing: recovered | detección 9.9 s | recovery 24.8 s | downtime 5 s | acciones: 1
+

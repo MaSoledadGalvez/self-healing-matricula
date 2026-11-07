@@ -4,5 +4,4 @@ dist/
 __pycache__/
 *.pyc
 .venv/
-data/*.csv
 !data/.gitkeep
